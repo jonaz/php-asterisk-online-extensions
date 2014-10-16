@@ -4,17 +4,17 @@ exec('sudo /usr/sbin/asterisk -r -x "sip show peers"',$sip);
 
 require_once('phones.php');
 
+$count = count($sip);
 unset($sip[0]);
+unset($sip[$count-1]);
+unset($sip[$count-2]);
+unset($sip[$count-3]);
 foreach($sip as $key => $line) {
-	if ( ($key == (count($sip))) ) {
-		unset($sip[$key]);
-		continue;
-	}
 
     $ms = '';
     $status = '';
     $user = '';
-	$status = trim(substr($line,95,150));
+	$status = trim(substr($line,94,150));
     if(substr($status,0,2) =='OK'){
         preg_match('#\((.*)\)#Umsi',$status,$res);
         $ms = $res[1];
